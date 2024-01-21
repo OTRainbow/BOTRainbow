@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 // Require the necessary discord.js classes
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 
 // Retrieve DISCORD_TOKEN
 require('dotenv').config()
@@ -12,7 +12,10 @@ token = process.env.DISCORD_TOKEN;
 // ------------------------------------------------------------------------------------
 
 // Create a new Client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions],
+	partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User],
+});
 
 // Create a new Collection instance to hold slash commands
 client.commands = new Collection();
